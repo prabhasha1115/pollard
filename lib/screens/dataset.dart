@@ -57,7 +57,7 @@ class _MyStudentsState extends State<MyStudents> {
                              ),
             StreamBuilder(
               
-              stream: FirebaseFirestore.instance.collection("MyStudents").snapshots(),
+              stream: FirebaseFirestore.instance.collection("Selling").snapshots(),
               builder: (context,snapshot) {
             
                 if (snapshot.hasData) {
