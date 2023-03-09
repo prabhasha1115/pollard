@@ -39,7 +39,7 @@ class _Home_ScreenState extends State<Home_Screen>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
               Icon(Icons.sell,size: 50,color: Colors.white,),
-              Text("Selling",style: TextStyle(color: Colors.white,fontSize: 30),)
+              Text("Selling",style: TextStyle(color: Colors.amber,fontSize: 30),)
             ],),
             ),
           ),
