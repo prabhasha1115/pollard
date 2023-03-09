@@ -3,7 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:pollard/components/reusable_card.dart';
 import 'package:pollard/constant.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:pollard/screens/dataset.dart';
 
 class MultiplicationScreen extends StatefulWidget {
   static const String id = 'input_page';
@@ -17,7 +19,57 @@ class _MultiplicationScreenState extends State<MultiplicationScreen> {
   final TextEditingController _secondNumberController = TextEditingController();
 
   int _type = 0;
+  bool _isSelected1 = true;
+  bool _isSelected2 = false;
+  bool _isSelected3 = false;
+ 
   int _result = 0;
+
+  int _counter = 0;
+
+  late String studentName;
+  
+  
+
+
+
+   getFirstNumber(firstNumber){
+    firstNumber = firstNumber;
+  }
+  getSecondNumber(secondNumber){
+    secondNumber = secondNumber;
+  }
+
+  // getStudentName(name){
+  //   studentName = name;
+  // }
+
+   createData(){
+    print('created');
+
+    DocumentReference documentReference= FirebaseFirestore.instance.collection("MyStudents").doc('$_counter');
+
+    num firstNumber = int.parse(_firstNumberController.text);
+    num secondNumber =int.parse(_secondNumberController.text);
+    
+    Map<String, dynamic> students = {
+      // "studentName": studentName,
+      "firstNumber": firstNumber,
+      "secondNumber":secondNumber,
+      "type":_type,
+      "count":_counter,
+
+    };
+
+    documentReference.set(students).whenComplete(() { print('$_counter created');});
+  }
+
+
+   void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
 
 
   void _multiplyNumbers() {
@@ -29,6 +81,7 @@ class _MultiplicationScreenState extends State<MultiplicationScreen> {
       _result = firstNumber * secondNumber;
     });
   }
+  
 
 
   @override
@@ -36,7 +89,8 @@ class _MultiplicationScreenState extends State<MultiplicationScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF0A0E21),
-        title: const Center(child: Text('Selling')),
+        title: Text('Selling'),
+        leading: const Icon(Icons.sell)
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -47,22 +101,43 @@ class _MultiplicationScreenState extends State<MultiplicationScreen> {
                 Row(children: [
                   Expanded(
                     child: IconButton(
-                      onPressed: () { 
-                        setState(() {
-                          
-                        });
-                       }, 
+                      
                       iconSize: 72,
                       icon: const Icon(Icons.home),
+                      onPressed: () {
+                        _type=0;
+                        print(_type);
+                        setState(() {
+                          _isSelected1 = true;
+                          _isSelected2 = false;
+                          _isSelected3 = false;
+
+                        });
+
+                      },
+                      color: _isSelected1 == true
+                      ? Color.fromARGB(255, 248, 248, 247)
+                      : Color.fromARGB(104, 104, 166, 228)
                     
                       ),),
                      Expanded(
                       child: IconButton(
                       onPressed: () { 
                         _type=1;
+                        print(_type);
+                        setState(() {
+                          _isSelected1 = false;
+                          _isSelected2 = true;
+                          _isSelected3 = false;
+                        });
+
                        }, 
+                       
                       iconSize: 72,
                       icon: const Icon(Icons.water_drop_rounded),
+                      color: _isSelected2 == true
+                      ? Color.fromARGB(255, 248, 248, 247)
+                      : Color.fromARGB(104, 104, 166, 228)
 
                     
                       ),
@@ -70,9 +145,19 @@ class _MultiplicationScreenState extends State<MultiplicationScreen> {
                       Expanded(child: IconButton(
                       onPressed: () { 
                         _type=2;
+                        print(_type);
+                        setState(() {
+                         _isSelected1 = false;
+                          _isSelected2 = false;
+                          _isSelected3 = true;
+                        });
+
                        }, 
                       iconSize: 72,
                       icon: const Icon(Icons.bed),
+                      color: _isSelected3 ==true
+                      ? Color.fromARGB(255, 248, 248, 247)
+                      : Color.fromARGB(104, 104, 166, 228)
                     
                       ),), ],),
                 Expanded(
@@ -80,6 +165,7 @@ class _MultiplicationScreenState extends State<MultiplicationScreen> {
                     children: [
                       Expanded(
                         child: ReusableCard(
+                        
                           colour: kActiveCardColor,
                           cardChild: Column(
                             children: [
@@ -94,6 +180,11 @@ class _MultiplicationScreenState extends State<MultiplicationScreen> {
                                 
                                 labelText: 'Mila',
                                 ),
+                                onChanged: (String firstNumber){
+
+                                  getFirstNumber(firstNumber);
+
+                                },
                                 ),
                               ),
                             ],
@@ -102,6 +193,7 @@ class _MultiplicationScreenState extends State<MultiplicationScreen> {
                       ),
                       Expanded(
                         child: ReusableCard(
+                          
                           colour: kActiveCardColor,
                           cardChild: Column(
                             children: [
@@ -114,6 +206,11 @@ class _MultiplicationScreenState extends State<MultiplicationScreen> {
                                 decoration: const InputDecoration(
                                 labelText: 'Quantity',
                                 ),
+                                 onChanged: (String secondNumber){
+
+                                  getSecondNumber(secondNumber);
+
+                                },
                                 ),
                               ),
                             ],
@@ -137,9 +234,14 @@ class _MultiplicationScreenState extends State<MultiplicationScreen> {
             
             onPressed: () => {  
               _multiplyNumbers(), 
+              createData(),
+              _incrementCounter(),
+
               
               _firstNumberController.clear(),
               _secondNumberController.clear(),
+              
+              Navigator.pushNamed(context, MyStudents.id),
               
             }, 
             child: const Text('CALCULATE',style: TextStyle(fontSize: 30,color: Colors.white),),

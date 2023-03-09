@@ -1,74 +1,81 @@
-import 'package:pollard/components/bottom_button.dart';
-import 'package:pollard/constant.dart';
-import 'package:pollard/components/reusable_card.dart';
-import 'package:flutter/material.dart'; 
+
+import 'package:flutter/material.dart';
+
+// ignore: camel_case_types
+class Sales_Screen extends StatefulWidget {
+  static const String id = 'result_page';
+  
+  @override
+  State<Sales_Screen> createState() => _Sales_ScreenState();
+}
 
 
-class Result extends StatelessWidget {
-  Result(
-      {required this.bmiResult,
-      required this.bmiText,
-      required this.interpretation});
-  final String bmiResult;
-  final String bmiText;
-  final String interpretation;
+class _Sales_ScreenState extends State<Sales_Screen>
+    with SingleTickerProviderStateMixin {
+  final colorstheme = Color(0xff4b4b87);
+
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    _tabController = new TabController(length: 3, vsync: this, initialIndex: 0)
+      ..addListener(() {});
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text(
+          'Analytics',
+        ),
         backgroundColor: const Color(0xFF0A0E21),
-        title: const Text('POL POL'),
+        centerTitle: true,
+        shadowColor: Colors.transparent,
+        leading: Padding(
+          padding: const EdgeInsets.only(left:15.0),
+          child: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: colorstheme,
+              size: 30,
+            ),
+            onPressed: () {},
+          ),
+        ),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Expanded(
-            child: Container(
-              child: const Text(
-                'Total',
-                style: kTopTextStyle,
-              ),
-            ),
+          Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.grey[300]),
+            child: TabBar(
+                isScrollable: true,
+                indicatorPadding: EdgeInsets.all(10),
+                labelColor: Colors.white,
+                unselectedLabelColor: colorstheme,
+                labelStyle: TextStyle(fontSize: 20),
+                labelPadding:
+                    EdgeInsets.only(left: 35, right: 35, top: 10, bottom: 10),
+                indicator: BoxDecoration(
+                    color: colorstheme,
+                    borderRadius: BorderRadius.circular(20)),
+                controller: _tabController,
+                tabs: [
+                  Text('Day'),
+                  Text('Week'),
+                  Text('Month'),
+                ]),
           ),
           Expanded(
-            flex: 5,
-            child: ReusableCard(
-              colour: kActiveCardColor,
-              cardChild: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Text(
-                      bmiText.toUpperCase(),
-                      style: kResultTextStyle,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Text(
-                      bmiResult,
-                      style: kBMITextStyle,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(28.0),
-                    child: Text(
-                      interpretation,
-                      style: kResultBodyTextStyle,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          // BottomButton(
-          //     onTap: () {
-          //       Navigator.pop(context);
-          //     },
-          //     bottomText: 'Re-Calculate', onPressed: () {  },)
+            child: TabBarView(
+              controller: _tabController, children: [
+              const Text("data"),
+
+            ]),
+          )
         ],
       ),
     );

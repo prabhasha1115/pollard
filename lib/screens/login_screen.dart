@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'chat_screen.dart';
+import 'package:pollard/screens/input_page.dart';
+import 'dataset.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen';
@@ -17,7 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
@@ -103,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           .signInWithEmailAndPassword(
                           email: email, password: password);
                       if(newUser !=null){
-                        Navigator.pushNamed(context, ChatScreen.id);
+                        Navigator.pushNamed(context, MultiplicationScreen.id);
                       }
                     }
                     catch(e){

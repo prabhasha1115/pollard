@@ -27,7 +27,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
@@ -39,18 +39,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                 Hero(
                   tag:'logo',
                   child: Container(
-                    // child: Image.asset('images/logo.png'),
+                     child: Image.asset('images/logo.png'),
                     height: controller.value,
                   ),
                 ),
                 DefaultTextStyle(
                   style: const TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontSize: 45.0,
                     fontWeight: FontWeight.w900,
                   ),
                   child: AnimatedTextKit (
-                    animatedTexts:[TyperAnimatedText('Pollard')],
+                    animatedTexts:[TyperAnimatedText('POLLARD')],
                   ),
                 ),
               ],

@@ -1,7 +1,9 @@
-import 'package:pollard/screens/chat_screen.dart';
+import 'package:pollard/screens/dataset.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'chat_screen.dart';
+import 'package:pollard/screens/home_page.dart';
+import 'package:pollard/screens/input_page.dart';
+import 'dataset.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -19,7 +21,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      
       body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
@@ -33,7 +35,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   // child: Image.asset('images/logo.png'),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 48.0,
               ),
               TextField(
@@ -43,7 +45,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
                   email= value;
                 },
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter your email',
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
@@ -60,7 +62,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8.0,
               ),
               TextField(
@@ -69,7 +71,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 onChanged: (value) {
                   password= value;
                 },
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter your password',
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
@@ -102,7 +104,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             .createUserWithEmailAndPassword(
                             email: email, password: password);
                         if(newUser !=null){
-                          Navigator.pushNamed(context, ChatScreen.id);
+                          Navigator.pushNamed(context, Home_Screen.id);
                         }
                       }
                       catch(e){
