@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pollard/screens/home_page.dart';
 import 'package:pollard/screens/input_page.dart';
 import 'dataset.dart';
 
@@ -104,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           .signInWithEmailAndPassword(
                           email: email, password: password);
                       if(newUser !=null){
-                        Navigator.pushNamed(context, MultiplicationScreen.id);
+                        Navigator.pushNamed(context, Home_Screen.id);
                       }
                     }
                     catch(e){

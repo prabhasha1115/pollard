@@ -47,12 +47,12 @@ class _MultiplicationScreenState extends State<MultiplicationScreen> {
    createData(){
     print('created');
 
-    DocumentReference documentReference= FirebaseFirestore.instance.collection("MyStudents").doc('$_counter');
+    DocumentReference documentReference= FirebaseFirestore.instance.collection("Selling").doc('$_counter');
 
     num firstNumber = int.parse(_firstNumberController.text);
     num secondNumber =int.parse(_secondNumberController.text);
     
-    Map<String, dynamic> students = {
+    Map<String, dynamic> selling = {
       // "studentName": studentName,
       "firstNumber": firstNumber,
       "secondNumber":secondNumber,
@@ -61,7 +61,7 @@ class _MultiplicationScreenState extends State<MultiplicationScreen> {
 
     };
 
-    documentReference.set(students).whenComplete(() { print('$_counter created');});
+    documentReference.set(selling).whenComplete(() { print('$_counter created');});
   }
 
 
