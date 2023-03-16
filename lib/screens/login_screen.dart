@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:pollard/screens/home_page.dart';
-import 'package:pollard/screens/input_page.dart';
-import 'dataset.dart';
+import 'package:pollard/screens/home_screen.dart';
+import 'package:pollard/screens/selling_screen.dart';
+import 'day_sales_screen.dart';
 
-class LoginScreen extends StatefulWidget {
+class Login_Screen extends StatefulWidget {
   static const String id = 'login_screen';
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _Login_ScreenState createState() => _Login_ScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _Login_ScreenState extends State<Login_Screen> {
   final _auth = FirebaseAuth.instance;
 
   late String email;
