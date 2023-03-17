@@ -1,18 +1,18 @@
-import 'package:pollard/screens/dataset.dart';
+import 'package:pollard/screens/day_sales_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:pollard/screens/home_page.dart';
-import 'package:pollard/screens/input_page.dart';
-import 'dataset.dart';
+import 'package:pollard/screens/home_screen.dart';
+import 'package:pollard/screens/selling_screen.dart';
+import 'day_sales_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-class RegistrationScreen extends StatefulWidget {
+class Registration_Screen extends StatefulWidget {
   static const String id = 'registration_screen';
   @override
-  _RegistrationScreenState createState() => _RegistrationScreenState();
+  _Registration_ScreenState createState() => _Registration_ScreenState();
 }
 
-class _RegistrationScreenState extends State<RegistrationScreen> {
+class _Registration_ScreenState extends State<Registration_Screen> {
   final _auth = FirebaseAuth.instance;
   bool showSpinner = false;
   late String email;

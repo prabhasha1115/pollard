@@ -5,16 +5,16 @@ import 'package:pollard/components/reusable_card.dart';
 import 'package:pollard/constant.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:pollard/screens/dataset.dart';
+import 'package:pollard/screens/day_sales_screen.dart';
 
-class MultiplicationScreen extends StatefulWidget {
-  static const String id = 'input_page';
+class Selling_Screen extends StatefulWidget {
+  static const String id = 'selling_screen';
   @override
-  _MultiplicationScreenState createState() => _MultiplicationScreenState();
+  _Selling_ScreenState createState() => _Selling_ScreenState();
 }
 
 
-class _MultiplicationScreenState extends State<MultiplicationScreen> {
+class _Selling_ScreenState extends State<Selling_Screen> {
   final TextEditingController _firstNumberController = TextEditingController();
   final TextEditingController _secondNumberController = TextEditingController();
 
@@ -241,7 +241,7 @@ class _MultiplicationScreenState extends State<MultiplicationScreen> {
               _firstNumberController.clear(),
               _secondNumberController.clear(),
               
-              Navigator.pushNamed(context, MyStudents.id),
+              Navigator.pushNamed(context, Day_Sales_Screen.id),
               
             }, 
             child: const Text('CALCULATE',style: TextStyle(fontSize: 30,color: Colors.white),),

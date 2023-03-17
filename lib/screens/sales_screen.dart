@@ -1,5 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'dart:convert';
 
 // ignore: camel_case_types
 class Sales_Screen extends StatefulWidget {
@@ -75,9 +78,56 @@ class _Sales_ScreenState extends State<Sales_Screen>
               const Text("data"),
 
             ]),
-          )
+          ),
+          ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.lightBlueAccent),
+                onPressed: (){
+                  // getData();
+                  readData();
+                 
+                 
+                },
+                child: const Text('Read'),),
+
         ],
       ),
     );
   }
+}
+
+readData (){
+
+   CollectionReference newCollection = FirebaseFirestore.instance.collection("Selling");
+    final type = newCollection.where('type',isEqualTo:0).get().then((QuerySnapshot snapshot){
+      snapshot.docs.forEach((element) {
+        // print(element.data());
+
+
+        dynamic typeElement = element.data();
+
+
+         print(typeElement);
+       
+        Map<String, dynamic> types = typeElement;
+
+
+          int coconut = types['secondNumber'];
+          // String studentID = types['studentID'];
+
+
+          print(coconut);
+          // print(studentID);
+
+
+       
+
+
+
+
+      });
+    });
+
+
+
+
 }

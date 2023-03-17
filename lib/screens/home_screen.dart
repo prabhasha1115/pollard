@@ -1,13 +1,13 @@
 
 import 'package:flutter/material.dart';
-import 'package:pollard/screens/input_page.dart';
+import 'package:pollard/screens/selling_screen.dart';
 import 'package:pollard/screens/login_screen.dart';
 import 'package:pollard/screens/registration_screen.dart';
-import 'package:pollard/screens/result_page.dart';
+import 'package:pollard/screens/sales_screen.dart';
 import 'package:pollard/screens/welcome_screen.dart';
 
 class Home_Screen extends StatefulWidget {
-  static const String id = 'home_page';
+  static const String id = 'home_screen';
 
   @override
   State<Home_Screen> createState() => _Home_ScreenState();
@@ -32,7 +32,7 @@ class _Home_ScreenState extends State<Home_Screen>
         child: GridView(scrollDirection: Axis.vertical, children: [
           InkWell(
             onTap: (){
-              Navigator.pushNamed(context, MultiplicationScreen.id);
+              Navigator.pushNamed(context, Selling_Screen.id);
             },
             child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Color(0xffff6968),),
             child: Column(
@@ -58,7 +58,7 @@ class _Home_ScreenState extends State<Home_Screen>
          ),
           InkWell(
               onTap: (){
-              Navigator.pushNamed(context, RegistrationScreen.id);
+              Navigator.pushNamed(context, Registration_Screen.id);
             },
             child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Color(0xffff8f61),),
             child: Column(
@@ -84,7 +84,7 @@ class _Home_ScreenState extends State<Home_Screen>
           ),
           InkWell(
             onTap: (){
-              Navigator.pushNamed(context, LoginScreen.id);
+              Navigator.pushNamed(context, Login_Screen.id);
             },
             child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Color(0xff5a65ff),),
             child: Column(
@@ -123,7 +123,7 @@ class _Home_ScreenState extends State<Home_Screen>
           ),
           InkWell(
             onTap: (){
-              Navigator.pushNamed(context, WelcomeScreen.id);
+              Navigator.pushNamed(context, Welcome_Screen.id);
             },
             child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Color(0xff7a54ff),),
             child: Column(

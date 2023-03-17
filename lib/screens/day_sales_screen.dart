@@ -1,18 +1,18 @@
 import'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:pollard/screens/input_page.dart';
+import 'package:pollard/screens/selling_screen.dart';
 
 
-class MyStudents extends StatefulWidget {
-  static const String id = 'dataset';
-  const MyStudents({Key? key}) : super(key: key);
+class Day_Sales_Screen extends StatefulWidget {
+  static const String id = 'day_sales_screen';
+  const Day_Sales_Screen({Key? key}) : super(key: key);
 
   @override
-  State<MyStudents> createState() => _MyStudentsState();
+  State<Day_Sales_Screen> createState() => _Day_Sales_ScreenState();
 }
 
-class _MyStudentsState extends State<MyStudents> {
+class _Day_Sales_ScreenState extends State<Day_Sales_Screen> {
 
   @override
   Widget build(BuildContext context) {
