@@ -34,7 +34,6 @@ class MyApp extends StatelessWidget {
           Day_Sales_Screen.id:(context) => Day_Sales_Screen(),
           Home_Screen.id:(context) => Home_Screen(),
           Sales_Screen.id:(context) => Sales_Screen(), 
-
         },
       );
     

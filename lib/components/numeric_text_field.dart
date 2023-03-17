@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import '../constant.dart';
 
-class TextFieldNumeric extends StatelessWidget {
+class NumericTextField extends StatelessWidget {
  
 
 
  
   final number = TextEditingController();
 
-  TextFieldNumeric(number);
+  NumericTextField(number);
  
   @override
   Widget build(BuildContext context) {

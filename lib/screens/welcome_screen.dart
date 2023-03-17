@@ -4,13 +4,13 @@ import 'registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
-class WelcomeScreen extends StatefulWidget {
+class Welcome_Screen extends StatefulWidget {
   static const String id = 'welcome_screen';
   @override
-  _WelcomeScreenState createState() => _WelcomeScreenState();
+  _Welcome_ScreenState createState() => _Welcome_ScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProviderStateMixin {
+class _Welcome_ScreenState extends State<Welcome_Screen> with SingleTickerProviderStateMixin {
 
   late AnimationController controller;
   @override
@@ -50,7 +50,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                     fontWeight: FontWeight.w900,
                   ),
                   child: AnimatedTextKit (
-                    animatedTexts:[TyperAnimatedText('POLLARD')],
+                    animatedTexts:[TypewriterAnimatedText('POLLARD')],
                   ),
                 ),
               ],
@@ -67,7 +67,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                 child: MaterialButton(
                   onPressed: () {
                     //Go to login screen.
-                    Navigator.pushNamed(context, LoginScreen.id);
+                    Navigator.pushNamed(context, Login_Screen.id);
                   },
                   minWidth: 200.0,
                   height: 42.0,
@@ -86,7 +86,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                 child: MaterialButton(
                   onPressed: () {
                     //Go to registration screen.
-                    Navigator.pushNamed(context, RegistrationScreen.id);
+                    Navigator.pushNamed(context, Registration_Screen.id);
                   },
                   minWidth: 200.0,
                   height: 42.0,
