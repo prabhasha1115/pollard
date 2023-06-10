@@ -1,22 +1,18 @@
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'dart:convert';
 
-// ignore: camel_case_types
 class Sales_Screen extends StatefulWidget {
   static const String id = 'result_page';
-  
+
   @override
   State<Sales_Screen> createState() => _Sales_ScreenState();
 }
 
-
 class _Sales_ScreenState extends State<Sales_Screen>
     with SingleTickerProviderStateMixin {
   final colorstheme = Color(0xff4b4b87);
-
   late TabController _tabController;
 
   @override
@@ -37,7 +33,7 @@ class _Sales_ScreenState extends State<Sales_Screen>
         centerTitle: true,
         shadowColor: Colors.transparent,
         leading: Padding(
-          padding: const EdgeInsets.only(left:15.0),
+          padding: const EdgeInsets.only(left: 15.0),
           child: IconButton(
             icon: Icon(
               Icons.arrow_back,
@@ -74,60 +70,45 @@ class _Sales_ScreenState extends State<Sales_Screen>
           ),
           Expanded(
             child: TabBarView(
-              controller: _tabController, children: [
-              const Text("data"),
-
-            ]),
+              controller: _tabController,
+              children: [const Text("data")],
+            ),
           ),
           ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.lightBlueAccent),
-                onPressed: (){
-                  // getData();
-                  readData();
-                 
-                 
-                },
-                child: const Text('Read'),),
-
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.lightBlueAccent,
+            ),
+            onPressed: () {
+              readData();
+            },
+            child: const Text('Read'),
+          ),
         ],
       ),
     );
   }
 }
 
-readData (){
+readData() async {
+  CollectionReference newCollection =
+      FirebaseFirestore.instance.collection("Selling");
+  QuerySnapshot snapshot =
+      await newCollection.where('type', isEqualTo: 0).get();
 
-   CollectionReference newCollection = FirebaseFirestore.instance.collection("Selling");
-    final type = newCollection.where('type',isEqualTo:0).get().then((QuerySnapshot snapshot){
-      snapshot.docs.forEach((element) {
-        // print(element.data());
+  int totalCoconut = 0;
 
+  for (QueryDocumentSnapshot docSnapshot in snapshot.docs) {
+    Map<String, Object?>? types = docSnapshot.data() as Map<String, Object?>?;
+    int? coconut = types?['secondNumber'] as int?;
+    if (coconut != null) {
+      totalCoconut += coconut;
+    }
+  }
+  print("Total coconut: $totalCoconut");
+}
 
-        dynamic typeElement = element.data();
-
-
-         print(typeElement);
-       
-        Map<String, dynamic> types = typeElement;
-
-
-          int coconut = types['secondNumber'];
-          // String studentID = types['studentID'];
-
-
-          print(coconut);
-          // print(studentID);
-
-
-       
-
-
-
-
-      });
-    });
-
-
-
-
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(Sales_Screen());
 }
