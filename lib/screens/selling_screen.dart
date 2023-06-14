@@ -91,30 +91,6 @@ class _Selling_ScreenState extends State<Selling_Screen> {
     });
   }
 
-  Future<void> updateStockOnSell(String itemId, int quantity) async {
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-    // Retrieve the current stock quantity
-    DocumentSnapshot snapshot =
-        await firestore.collection('Stock').doc(itemId).get();
-    int currentQuantity =
-        (snapshot.data() as Map<String, dynamic>)['quantity'] as int;
-
-    // Calculate the updated quantity after selling
-    int updatedQuantity = currentQuantity - quantity;
-
-    // Ensure the updated quantity does not go below zero
-    if (updatedQuantity < 0) {
-      updatedQuantity = 0;
-    }
-
-    // Update the stock quantity in Firestore
-    await firestore
-        .collection('stock')
-        .doc(itemId)
-        .update({'quantity': updatedQuantity});
-  }
-
   void _incrementCounter() {
     setState(() {
       _counter++;
@@ -271,7 +247,6 @@ class _Selling_ScreenState extends State<Selling_Screen> {
               createData(),
               _incrementCounter(),
               _printDateTime(),
-              updateStockOnSell('0', 10),
               _firstNumberController.clear(),
               _secondNumberController.clear(),
               Navigator.pushNamed(context, Day_Sales_Screen.id),
