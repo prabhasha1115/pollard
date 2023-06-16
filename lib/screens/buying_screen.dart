@@ -37,59 +37,57 @@ class _Buying_ScreenState extends State<Buying_Screen> {
     secondNumber = secondNumber;
   }
 
-  // getStudentName(name){
-  //   studentName = name;
-  // }
+ 
+  createData() async {
+  print('created');
 
-  // createData() {
-  //   print('created');
+  DateTime now = DateTime.now();
+  print(now);
+  String formattedDate = DateFormat('yyyy-MM-dd-kk:mm:ss').format(now);
 
-  //   String formattedDate = DateFormat('yyyy-MM-dd-kk:mm').format(now);
+  CollectionReference collectionReference =
+      FirebaseFirestore.instance.collection("Buying");
 
-  //   DocumentReference documentReference =
-  //       FirebaseFirestore.instance.collection("Selling").doc(formattedDate);
+  CollectionReference collectionReference2 =
+      FirebaseFirestore.instance.collection("Stock");
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  //   num firstNumber = int.parse(_firstNumberController.text);
-  //   num secondNumber = int.parse(_secondNumberController.text);
+  num firstNumber = int.parse(_firstNumberController.text);
+  int secondNumber = int.parse(_secondNumberController.text);
 
-  //   Map<String, dynamic> selling = {
-  //     // "studentName": studentName,
-  //     "firstNumber": firstNumber,
-  //     "secondNumber": secondNumber,
-  //     "type": _type,
-  //     "count": _counter,
-  //   };
+  Map<String, dynamic> selling = {
+    "firstNumber": firstNumber,
+    "secondNumber": secondNumber,
+    "type": _type,
+    "count": _counter,
+    "date": now,
+    "value": _result,
+  };
+  Map<String, dynamic> stock = {
+    "secondNumber": secondNumber,
+    "type": _type,
+  };
 
-  //   documentReference.set(selling).whenComplete(() {
-  //     print('$_counter  created');
-  //   });
-  // }
-  createData() {
-    print('created');
+  collectionReference.doc(formattedDate).set(selling).whenComplete(() {
+    print('$_counter created');
+  });
 
-    DateTime now = DateTime.now();
-    print(now);
-    String formattedDate = DateFormat('yyyy-MM-dd-kk:mm:ss').format(now);
+  // Update stock quantity in Firestore
+  DocumentSnapshot snapshot =
+      await firestore.collection('Stock').doc('$_type').get();
+  int currentQuantity =
+      (snapshot.data() as Map<String, dynamic>)['secondNumber'] as int;
 
-    CollectionReference collectionReference =
-        FirebaseFirestore.instance.collection("Buying");
+  // Calculate the updated quantity after buying
+  int updatedQuantity = currentQuantity + secondNumber;
 
-    num firstNumber = int.parse(_firstNumberController.text);
-    num secondNumber = int.parse(_secondNumberController.text);
+  // Update the stock quantity in Firestore
+  await firestore
+      .collection('Stock')
+      .doc('$_type')
+      .update({'secondNumber': updatedQuantity});
+}
 
-    Map<String, dynamic> selling = {
-      "firstNumber": firstNumber,
-      "secondNumber": secondNumber,
-      "type": _type,
-      "count": _counter,
-      "date": now,
-      "value": _result,
-    };
-
-    collectionReference.doc(formattedDate).set(selling).whenComplete(() {
-      print('$_counter created');
-    });
-  }
 
   void _incrementCounter() {
     setState(() {
@@ -117,7 +115,7 @@ class _Buying_ScreenState extends State<Buying_Screen> {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: const Color(0xFF0A0E21),
-          title: Text('Selling'),
+          title: Text('Buying'),
           leading: const Icon(Icons.sell)),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -195,7 +193,7 @@ class _Buying_ScreenState extends State<Buying_Screen> {
                                   keyboardType: TextInputType.number,
                                   controller: _firstNumberController,
                                   decoration: const InputDecoration(
-                                    labelText: 'Mila',
+                                    labelText: 'Unit Price',
                                   ),
                                   onChanged: (String firstNumber) {
                                     getFirstNumber(firstNumber);

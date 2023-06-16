@@ -4,9 +4,11 @@ import 'package:pollard/screens/analytics_screen.dart';
 import 'package:pollard/screens/buying_screen.dart';
 import 'package:pollard/screens/day_sales_screen.dart';
 import 'package:pollard/screens/home_screen.dart';
+import 'package:pollard/screens/inventory_screen.dart';
 import 'package:pollard/screens/login_screen.dart';
 import 'package:pollard/screens/registration_screen.dart';
 import 'package:pollard/screens/sales_screen.dart';
+import 'package:pollard/screens/wallet_screen.dart';
 
 import 'package:pollard/screens/welcome_screen.dart';
 import 'screens/selling_screen.dart';
@@ -38,6 +40,8 @@ class MyApp extends StatelessWidget {
         Home_Screen.id: (context) => Home_Screen(),
         SalesScreen.id: (context) => SalesScreen(),
         Analytics_Screen.id: (context) => Analytics_Screen(),
+        Inventory_Screen.id:(context) => Inventory_Screen(),
+        Wallet_Screen.id:(context) => Wallet_Screen(),
       },
     );
   }

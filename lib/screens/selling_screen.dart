@@ -64,32 +64,61 @@ class _Selling_ScreenState extends State<Selling_Screen> {
   //     print('$_counter  created');
   //   });
   // }
-  createData() {
-    print('created');
+createData() async {
+  print('created');
 
-    DateTime now = DateTime.now();
-    print(now);
-    String formattedDate = DateFormat('yyyy-MM-dd-kk:mm:ss').format(now);
+  DateTime now = DateTime.now();
+  print(now);
+  String formattedDate = DateFormat('yyyy-MM-dd-kk:mm:ss').format(now);
 
-    CollectionReference collectionReference =
-        FirebaseFirestore.instance.collection("Selling");
+  CollectionReference collectionReference =
+      FirebaseFirestore.instance.collection("Selling");
 
-    num firstNumber = int.parse(_firstNumberController.text);
-    num secondNumber = int.parse(_secondNumberController.text);
+  CollectionReference collectionReference2 =
+      FirebaseFirestore.instance.collection("Stock");
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    Map<String, dynamic> selling = {
-      "firstNumber": firstNumber,
-      "secondNumber": secondNumber,
-      "type": _type,
-      "count": _counter,
-      "date": now,
-      "value": _result,
-    };
+  num firstNumber = int.parse(_firstNumberController.text);
+  int secondNumber = int.parse(_secondNumberController.text);
 
-    collectionReference.doc(formattedDate).set(selling).whenComplete(() {
-      print('$_counter created');
-    });
+  Map<String, dynamic> selling = {
+    "firstNumber": firstNumber,
+    "secondNumber": secondNumber,
+    "type": _type,
+    "count": _counter,
+    "date": now,
+    "value": _result,
+  };
+  Map<String, dynamic> stock = {
+    "secondNumber": secondNumber,
+    "type": _type,
+  };
+
+  collectionReference.doc(formattedDate).set(selling).whenComplete(() {
+    print('$_counter created');
+  });
+
+  // Update stock quantity in Firestore
+  DocumentSnapshot snapshot =
+      await firestore.collection('Stock').doc('$_type').get();
+  int currentQuantity =
+      (snapshot.data() as Map<String, dynamic>)['secondNumber'] as int;
+
+   // Calculate the updated quantity after selling
+  int updatedQuantity = currentQuantity - secondNumber;
+
+  // Ensure the updated quantity does not go below zero
+  if (updatedQuantity < 0) {
+    updatedQuantity = 0;
   }
+
+  // Update the stock quantity in Firestore
+  await firestore
+      .collection('Stock')
+      .doc('$_type')
+      .update({'secondNumber': updatedQuantity});
+}
+
 
   void _incrementCounter() {
     setState(() {

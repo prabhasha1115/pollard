@@ -5,7 +5,10 @@ import 'package:pollard/screens/selling_screen.dart';
 import 'package:pollard/screens/login_screen.dart';
 import 'package:pollard/screens/registration_screen.dart';
 import 'package:pollard/screens/sales_screen.dart';
+import 'package:pollard/screens/wallet_screen.dart';
 import 'package:pollard/screens/welcome_screen.dart';
+
+import 'inventory_screen.dart';
 
 class Home_Screen extends StatefulWidget {
   static const String id = 'home_screen';
@@ -135,7 +138,7 @@ class _Home_ScreenState extends State<Home_Screen>
               ),
               InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, Login_Screen.id);
+                  Navigator.pushNamed(context, Inventory_Screen.id);
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -160,7 +163,7 @@ class _Home_ScreenState extends State<Home_Screen>
               ),
               InkWell(
                 onTap: () {
-                  // Navigator.pushNamed(context, MultiplicationScreen.id);
+                  Navigator.pushNamed(context, Wallet_Screen.id);
                 },
                 child: Container(
                   decoration: BoxDecoration(
